@@ -53,9 +53,9 @@ $(function() {
         compare: function(actual, className) {
           return {
             pass: $(actual).hasClass(className)
-          }
+          };
         }
-      }
+      };
     }
   };
 
