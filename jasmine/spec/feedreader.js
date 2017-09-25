@@ -21,9 +21,10 @@ $(function() {
      * in the allFeeds object and ensures it has a URL defined
      * and that the URL is not empty.
      */
-    it('all URL defined', function() {
+    it('all URL defined and not empty', function() {
       allFeeds.forEach(function(feed) {
-        expect(feed.url).not.toBeNull();
+        expect(feed.url).toBeDefined();
+        expect(feed.url.length).not.toBe(0);
       });
     });
 
@@ -32,9 +33,10 @@ $(function() {
      * in the allFeeds object and ensures it has a name defined
      * and that the name is not empty.
      */
-    it('all names defined', function() {
+    it('all names defined and not empty', function() {
       allFeeds.forEach(function(feed) {
-        expect(feed.url).not.toBeNull();
+        expect(feed.name).toBeDefined();
+        expect(feed.name.length).not.toBe(0);
       });
     });
   });
@@ -51,10 +53,10 @@ $(function() {
         compare: function(actual, className) {
           return {
             pass: $(actual).hasClass(className)
-          };
+          }
         }
-      };
-    },
+      }
+    }
   };
 
   describe('The menu', function() {
@@ -96,6 +98,7 @@ $(function() {
 
   /* -------Test suite named "Initial Entries"------ */
 
+
   describe('Inital Entries', function() {
 
     //async request before executing spec
@@ -109,11 +112,10 @@ $(function() {
      * function is called and completes its work, there is at least
      * a single .entry element within the .feed container.
      */
-    it('feed entry exist', function(done) {
+    it('feed entry exist', function() {
 
       //checks if atleast one entry is available
-      expect($('.feed').children()[0]).not.toBeNull();
-      done();
+      expect($('.feed .entry-link .entry').length).toBeGreaterThan(0);
     });
 
   });
@@ -162,8 +164,10 @@ $(function() {
       expect(initContent).not.toEqual(newContent);
 
       // calling this to load Udacity Blog feeds
-      loadFeed(0);
-      done();
+      loadFeed(0, function() {
+        done();
+      });
+      // done();
     });
 
   });
